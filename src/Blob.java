@@ -12,10 +12,10 @@ import java.security.NoSuchAlgorithmException;
 public class Blob {
 	private static File end;
 	public Blob(String origFile) throws IOException {
-		File oldFile = new File(System.getProperty("user.dir") + "/src/" + origFile);
+		File oldFile = new File(System.getProperty("user.dir") + "/" + origFile);
 		byte[] input = convertToByte(oldFile.getAbsoluteFile());
 		String fileName = toSHA1(input);
-		File newFile = new File(System.getProperty("user.dir") + "/objects", fileName);
+		File newFile = new File("objects", fileName);
 		copyFileUsingStream(oldFile, newFile);
 	}
 	 public static byte[] convertToByte(File file) throws IOException
