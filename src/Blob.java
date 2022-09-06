@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,15 +11,15 @@ import java.security.NoSuchAlgorithmException;
 
 public class Blob {
 	private static File end;
-	public Blob(File origFile) throws IOException {
-		byte[] input = method(origFile.getAbsoluteFile());
-		File newFile = new File("/Users/asherburstin/Applications/Eclipse.app/Contents/Prerequisites/src/object" + input);
-		copyFileUsingStream(origFile.getAbsoluteFile(), newFile.getAbsoluteFile());
+	public Blob(String origFile) throws IOException {
+		File oldFile = new File("/Users/asherburstin/Applications/Eclipse.app/Contents/Prerequisites/src" + origFile);
+		byte[] input = convertToByte(oldFile.getAbsoluteFile());
+		String fileName = toSHA1(input);
+		File newFile = new File("/Users/asherburstin/Applications/Eclipse.app/Contents/Prerequisites/objects", fileName);
+		copyFileUsingStream(oldFile, newFile);
 	}
-	 public static byte[] method(File file)
-		        throws IOException
+	 public static byte[] convertToByte(File file) throws IOException
 		    {
-		  
 		        // Creating an object of FileInputStream to
 		        // read from a file
 		        FileInputStream fl = new FileInputStream(file);
