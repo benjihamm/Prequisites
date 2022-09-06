@@ -6,7 +6,7 @@ public class BlobTester {
 //		File testFile = new File("tester.txt");
 		Blob test = new Blob("/test.txt");
 //		System.out.println(test.method(testFile));
-		
+		System.out.println(System.getProperty("user.dir"));
 	}
 }
 
