@@ -70,4 +70,7 @@ public class Blob {
 	public String getSHA1() {
 		return filesName;
 	}
+	public File getFile() {
+		return end;
+	}
 }
