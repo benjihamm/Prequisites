@@ -8,8 +8,10 @@ public class IndexTester {
 		System.out.println(System.getProperty("user.dir"));
 		test.init();
 		test.add("tst");
-//		test.add("tsts");
-		test.remove("tst");
+		test.add("tsts");
+		test.add("tstst");
 //		test.remove("tsts");
+		test.remove("tst");
+		test.remove("tstst");
 	}
 }
