@@ -16,10 +16,10 @@ public class Blob {
 	private static File end;
 	private String filesName;
 	public Blob(String origFile) throws IOException, NoSuchAlgorithmException {
-		File oldFile = new File(System.getProperty("user.dir") + "/" + origFile);
+		File oldFile = new File(origFile);
 		byte[] input = convertToByte(oldFile.getAbsoluteFile());
 		filesName = SHAsum(input);
-		File newFile = new File(System.getProperty("user.dir") + "/objects", filesName);
+		File newFile = new File("objects", filesName);
 		copyFileUsingStream(oldFile, newFile);
 	}
 	 public static byte[] convertToByte(File file) throws IOException
