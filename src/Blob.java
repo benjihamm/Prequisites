@@ -5,19 +5,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+import java.util.Formatter;
 
 public class Blob {
 	private static File end;
 	private String filesName;
-	public Blob(String origFile) throws IOException {
+	public Blob(String origFile) throws IOException, NoSuchAlgorithmException {
 		File oldFile = new File(System.getProperty("user.dir") + "/" + origFile);
 		byte[] input = convertToByte(oldFile.getAbsoluteFile());
-		String newFileName = toSHA1(input);
-		filesName = newFileName;
-		File newFile = new File(System.getProperty("user.dir") + "/objects", newFileName);
+		filesName = SHAsum(input);
+		File newFile = new File(System.getProperty("user.dir") + "/objects", filesName);
 		copyFileUsingStream(oldFile, newFile);
 	}
 	 public static byte[] convertToByte(File file) throws IOException
@@ -40,15 +42,17 @@ public class Blob {
 		        // Returning above byte array
 		        return arr;
 		    }
-	public static String toSHA1(byte[] convertme) {
-	    MessageDigest md = null;
-	    try {
-	        md = MessageDigest.getInstance("SHA-1");
+	public static String SHAsum(byte[] convertme) throws NoSuchAlgorithmException{
+	    MessageDigest md = MessageDigest.getInstance("SHA-1"); 
+	    return byteArray2Hex(md.digest(convertme));
+	}
+
+	private static String byteArray2Hex(final byte[] hash) {
+	    Formatter formatter = new Formatter();
+	    for (byte b : hash) {
+	        formatter.format("%02x", b);
 	    }
-	    catch(NoSuchAlgorithmException e) {
-	        e.printStackTrace();
-	    } 
-	    return new String(md.digest(convertme));
+	    return formatter.toString();
 	}
 	private static void copyFileUsingStream(File source, File dest) throws IOException {
 	    InputStream is = null;

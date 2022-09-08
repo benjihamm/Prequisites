@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 public class Index {
@@ -26,7 +27,7 @@ public class Index {
 		}
 		pw.close();
 	}
-	public void add(String FileName) throws IOException {
+	public void add(String FileName) throws IOException, NoSuchAlgorithmException {
 		Blob blob = new Blob(FileName);
 		files.put(FileName, blob);
 		editIndex();
