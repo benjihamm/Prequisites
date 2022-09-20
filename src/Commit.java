@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Commit {
-	File p = null;
-	File c = null;
+	String p;
+	String c;
 	String pointToTree;
 	String date;
 	String name;
@@ -17,14 +17,12 @@ public class Commit {
 	File pTree;
 	public Commit(String parent, String child, String pointTo, String author, String description) {
 		pointToTree = pointTo;
-		if(parent != null)
-			p = new File("objects", parent);
-		if(child != null)
-			c = new File("objects", child);
+		p = parent;
+		c = child;
 		summary = description;
 		name = author;
 		if(!(pointToTree == null)) {
-			pTree = new File("objects", pointToTree);
+			pTree = new File(pointToTree);
 		}
 	}
 	public String getPTree() {
@@ -59,15 +57,9 @@ public class Commit {
 	public void writeFile() throws FileNotFoundException {
 		File f = new File("objects", generateSHA1());
 		PrintWriter pw = new PrintWriter(f);
-		pw.println(pTree.toString());
-		if(p != null)
-			pw.println(p.toString());
-		else
-			pw.println();
-		if(c != null)
-			pw.println(c.toString());
-		else
-			pw.println();
+		pw.println(pointToTree);
+		pw.println(p);
+		pw.println(c);
 		pw.println(name);
 		pw.println(getDate());
 		pw.println(summary);
